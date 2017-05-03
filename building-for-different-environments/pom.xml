@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.readlearncode</groupId>
+    <artifactId>build-environment</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- Declare two maven profiles here -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <deploymentManagerRestHost>10.50.50.52</deploymentManagerRestHost>
+                <deploymentManagerRestPort>58090</deploymentManagerRestPort>
+                <deploymentManagerRestUsername>myusername</deploymentManagerRestUsername>
+                <deploymentManagerRestPassword>mypassword</deploymentManagerRestPassword>
+            </properties>
+        </profile>
+        <profile>
+            <id>qa</id>
+            <properties>
+                <deploymentManagerRestHost>10.50.50.50</deploymentManagerRestHost>
+                <deploymentManagerRestPort>58090</deploymentManagerRestPort>
+                <deploymentManagerRestUsername>myotherusername</deploymentManagerRestUsername>
+                <deploymentManagerRestPassword>myotherpassword</deploymentManagerRestPassword>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <echo>${deploymentManagerRestHost}</echo>
+                                <echo>${deploymentManagerRestPort}</echo>
+                                <echo>${deploymentManagerRestUsername}</echo>
+                                <echo>${deploymentManagerRestPassword}</echo>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
